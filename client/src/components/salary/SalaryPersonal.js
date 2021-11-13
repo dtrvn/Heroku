@@ -62,7 +62,7 @@ const SalaryPersonal = ({
     useEffect(() => {
         // console.log("user 2");
         // if (!currentDay) {
-        if (user && user.roles === "User") {
+        if (user && user.roles === "User" && user._id !== userId ) {
             // console.log("user " + user.roles);
             getLastDayOfThisWeek = moment().startOf("isoWeek").add(6, "days").format('YYYY-MM-DD');
             getShiftRegisterViewSalary(userId, dateFrom, getLastDayOfThisWeek, currentDay);
