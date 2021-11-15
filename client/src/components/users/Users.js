@@ -1,15 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Link, withRouter, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { deleteUser, getAllUsers, getUser } from "../../actions/user";
 import { getAllTypeUsers } from "../../actions/typeUser";
-import AddUserForm from "../user-forms/AddUserForm";
-import EditUserForm from "../user-forms/EditUserForm";
-import { setAlert } from "../../actions/alert";
 
 const Users = ({
-  setAlert,
   deleteUser,
   getAllUsers,
   getAllTypeUsers,
@@ -24,16 +20,6 @@ const Users = ({
     getAllTypeUsers();
   }, [getAllTypeUsers, getAllUsers]);
 
-  const initialFormState = {
-    id: null,
-    name: "",
-    email: "",
-    phone: "",
-    typeUserId: "",
-    status: "",
-    roles: "",
-  };
-
   const filterState = {
     filterName: "",
     filterTypeUserName: "",
@@ -42,8 +28,6 @@ const Users = ({
   };
 
   // Setting state
-  const [currentUser, setCurrentUser] = useState(initialFormState);
-  const [editing, setEditing] = useState(false);
   const [filter, setFilter] = useState(filterState);
 
   if (isAuthenticated && user && user.roles === "User") {

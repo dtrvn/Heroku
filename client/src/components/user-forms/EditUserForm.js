@@ -2,8 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { createUser, getCurrentUser, getAllUsers } from "../../actions/user";
-import Spinner from "../layout/Spinner";
+import { createUser, getCurrentUser } from "../../actions/user";
 import { getAllTypeUsers } from "../../actions/typeUser";
 
 const EditUserForm = ({
@@ -29,7 +28,6 @@ const EditUserForm = ({
     getCurrentUser(match.params.id);
     getAllTypeUsers();
   }, []);
-  
 
   useEffect(() => {
     

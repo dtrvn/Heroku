@@ -20,10 +20,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { id, shiftName, timeStart, timeEnd, branchId } = req.body;
-    
+    const { id, shiftName, timeStart, timeEnd, branchId, dateUpdate } = req.body;
+
     // Xét giá trị là ngày thứ 2 của tuần sau
-    var date = moment().startOf("isoWeek").add(7, "days").format('YYYY-MM-DD');
+    var date = null;
+    if (dateUpdate) {
+      date = moment(dateUpdate).format('YYYY-MM-DD');
+    }
+    else {
+      date = moment().startOf("isoWeek").add(7, "days").format('YYYY-MM-DD');
+    }
     var shiftTime = null;
     var time = null;
 
@@ -81,8 +87,11 @@ router.post(
         shift = await Shift.findOneAndUpdate(
           { _id: id },
           { $set: shiftField },
-          { new: true }
+          { new: true, useFindAndModify: false }
         );
+        shift = await Shift.findOne({
+          $and: [{ shiftName: shiftName }, { date: date }],
+        }).populate("branchId");
         return res.json(shift);
       }
 
@@ -103,6 +112,10 @@ router.post(
       });
 
       await shift.save();
+
+      shift = await Shift.findOne({
+        $and: [{ shiftName: shiftName }, { time: time }, { date: date }, { branchId: branchId }],
+      }).populate("branchId");
 
       res.json(shift);
     } catch (err) {

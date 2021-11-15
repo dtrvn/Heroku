@@ -34,6 +34,7 @@ const Shift = ({ deleteShift, getAllShifts, getAllBranchs, shift: { shifts, shif
       timeStart: timeStart,
       timeEnd: timeEnd,
       branchId: shift.branchId._id,
+      dateUpdate: shift.date
     });
   };
 
@@ -50,13 +51,13 @@ const Shift = ({ deleteShift, getAllShifts, getAllBranchs, shift: { shifts, shif
       <td>{shift.branchId.branchAddress}</td>
       <td><Moment format="DD/MM/YYYY">{shift.date}</Moment></td>
       <td>
-        <button onClick={() => editShift(shift)} className="btn btn-success"><i class="far fa-edit"></i>
+        <button onClick={() => editShift(shift)} className="btn btn-success"><i className="far fa-edit"></i>
           <span className="hide-sm"> Sửa</span>
         </button>
         <button
           onClick={() => deleteShift(shift._id)}
           className="btn btn-danger"
-        ><i class="fas fa-trash-alt"></i>
+        ><i className="fas fa-trash-alt"></i>
           <span className="hide-sm"> Xóa</span>
         </button>
       </td>
@@ -86,8 +87,8 @@ const Shift = ({ deleteShift, getAllShifts, getAllBranchs, shift: { shifts, shif
                 )}
               </div>
               <div className="row">
-                <div class="table-responsive">
-                  <table class="table color-table purple-table">
+                <div className="table-responsive">
+                  <table className="table color-table purple-table">
 
                     <thead>
                       <tr>
@@ -105,9 +106,9 @@ const Shift = ({ deleteShift, getAllShifts, getAllBranchs, shift: { shifts, shif
               </div>
             </div>
             <div className="card-footer">
-              <Link className="btn btn-inverse waves-effect waves-light" to="/dashboard">
+              {/* <Link className="btn btn-inverse waves-effect waves-light" to="/dashboard">
                 Trở về
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

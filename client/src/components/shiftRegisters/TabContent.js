@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import moment from "moment";
-import { getShiftRegisters, addUserShiftRegister, deleteUserShiftRegister, setShowShiftRegistersModal, setShowShiftRegistersUserModal } from "../../actions/shiftRegister";
+import { getShiftRegisters, addUserShiftRegister, deleteUserShiftRegister, setShowShiftRegistersModal, setShowShiftRegistersUserModal, setShiftRegisterLoader } from "../../actions/shiftRegister";
 import { setShowAddManagerModal } from "../../actions/shiftRegisterManager";
 import { getAllPermitShifts } from "../../actions/permitShiftRegist";
 import Spinner from "../layout/Spinner";
@@ -54,6 +54,7 @@ const TabContent = ({
     setShowShiftRegistersModal,
     setShowShiftRegistersUserModal,
     setShowAddManagerModal,
+    setShiftRegisterLoader
 }) => {
 
     let branchId = null;
@@ -79,6 +80,8 @@ const TabContent = ({
     const [showButtonCopyPersonInShift, setShowButtonCopyPersonInShift] = useState("0");
 
     const [dayRegist, setDayRegist] = useState(0);
+
+    const [loadingAgain, setLoadingAgain] = useState(false);
 
     // const [viewFormPersonInShiftRegist, setViewFormPersonInShiftRegist] = useState(false);
 
@@ -131,6 +134,10 @@ const TabContent = ({
     useEffect(() => {
         getAllPermitShifts();
     }, []);
+
+    useEffect(() => {
+        setShiftRegisterLoader(false);
+    }, [loadingAgain]);
 
     useEffect(() => {
         if (moment(startDate).format('YYYY-MM-DD') > moment().startOf("isoWeek").format('YYYY-MM-DD')
@@ -2879,7 +2886,7 @@ const TabContent = ({
 
     return (
         <Fragment>
-            {(!loader && shifts.length <= 0) || (!shiftRegisterLoader && shifts.length <= 0) ? (
+            {(!loader && shifts.length <= 0) || (!shiftRegisterLoader && shifts.length <= 0) || !shiftRegisterLoader || !loader? (
                 <Spinner />
             ) : (
                 <Fragment>
@@ -3131,44 +3138,14 @@ const TabContent = ({
                             typeUsers={typeUsers}
                             shiftRegisters={shiftRegisters}
                             showShiftRegistersModal={showShiftRegistersModal}
-                            // setShowShiftRegisterModal={setShowShiftRegisterModal}
                             count={count}
                             personInShift={personInShift}
                             permitShiftRegists={permitShiftRegists}
+                            loadingAgain={setLoadingAgain}
+                            setLoadingAgain={setLoadingAgain}
                         />
                     ) : ""
                     }
-
-                    {/* {showShiftRegisterModal === 1 ? (
-                        <ShiftRegisterModal
-                            currentDay={dayRegist}
-                            dateFrom={startDate}
-                            dateTo={endDate}
-                            branchId={branchs[activeTab]._id}
-                            userLogin={userLogin._id}
-                            currentUserLineId={currentUserId}
-                            shifts={shifts}
-                            jobs={jobs}
-                            users={users}
-                            typeUsers={typeUsers}
-                            shiftRegisters={shiftRegisters}
-                            showShiftRegisterModal={showShiftRegisterModal}
-                            setShowShiftRegisterModal={setShowShiftRegisterModal}
-                            count={count}
-                            personInShift={personInShift}
-                            permitShiftRegists={permitShiftRegists}
-                        />
-                    ) : ""} */}
-
-                    {/* {showUpdateOrDeleteModal === 1 ? (
-                        <UpdateDeleteUserModal
-                            idUpdate={idUpdate}
-                            currentUserLineId={currentUserId}
-                            users={users}
-                            countCallUpdateDeleteUserModal={countCallUpdateDeleteUserModal}
-                            listUserId={saveUserId}
-                        />
-                    ) : ""} */}
 
                     {showUpdateOrDeleteUserModal === true ? (
                         <UpdateDeleteUserModal
@@ -3231,7 +3208,7 @@ TabContent.propTypes = {
     setShowShiftRegistersModal: PropTypes.func.isRequired,
     setShowShiftRegistersUserModal: PropTypes.func.isRequired,
     setShowAddManagerModal: PropTypes.func.isRequired,
-    // getShiftForBranch: PropTypes.func.isRequired,
+    setShiftRegisterLoader: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -3260,6 +3237,7 @@ export default connect(mapStateToProps,
         setShowShiftRegistersModal,
         setShowShiftRegistersUserModal,
         setShowAddManagerModal,
+        setShiftRegisterLoader
     })(
         TabContent
     );

@@ -1,12 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addShift } from "../../actions/shift";
 import TimeKeeper from 'react-timekeeper';
 
 const AddShiftForm = ({ addShift, branchs, history }) => {
-  const initialFormState = { id: null, shiftName: "", shiftTime: "", timeStart: "09:00", timeEnd: "12:00", date: "", branchId: null };
+  const initialFormState = { id: null, shiftName: "", shiftTime: "", timeStart: "09:00", timeEnd: "12:00", dateUpdate: null, branchId: null };
 
   const [formData, setFormData] = useState(initialFormState);
 
@@ -17,7 +17,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const clearForm = () => {
-    setFormData({ ...formData, shiftName: "", shiftTime: "", timeStart: "09:00", timeEnd: "12:00", date: "" });
+    setFormData({ ...formData, shiftName: "", shiftTime: "", timeStart: "09:00", timeEnd: "12:00", dateUpdate: null });
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
   }, [branchs]);
 
   let elmBranchs = branchs.map((ele) => (
-    <option value={ele._id}>{ele.branchAddress}</option>
+    <option key={ele._id} value={ele._id}>{ele.branchAddress}</option>
   ));
 
   return (
@@ -49,7 +49,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
                 <div className="form-group has-success">
                   <input type="text"
                     name="shiftName"
-                    value={formData.shiftName}
+                    value={formData.shiftName == null ? '' : formData.shiftName}
                     onChange={(e) => onChange(e)}
                     className="form-control"
                     placeholder="* Tên ca"
@@ -60,7 +60,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
                 <div className="form-group has-success">
                   <input type="text"
                     name="time"
-                    value={formData.timeStart}
+                    value={formData.timeStart == null ? '' : formData.timeStart}
                     className="form-control"
                     placeholder="* Thời gian bắt đầu"
                     onChange={(e) => onChange(e)}
@@ -75,7 +75,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
                 <div className="form-group has-success">
                   <input type="text"
                     name="time"
-                    value={formData.timeEnd}
+                    value={formData.timeEnd == null ? '' : formData.timeEnd}
                     className="form-control"
                     placeholder="* Thời gian kết thúc"
                     onChange={(e) => onChange(e)}
@@ -90,9 +90,9 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
                 <div className="form-group has-success">
                   <select
                     name="branchId"
-                    value={formData.branchId}
+                    value={formData.branchId == null ? '' : formData.branchId}
                     onChange={(e) => onChange(e)}
-                    class="form-control custom-select"
+                    className="form-control custom-select"
                   >
                     {elmBranchs}
                   </select>
@@ -100,7 +100,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
               </div>
               <div className="col-md-addShift-2">
                 <div className="form-actions">
-                  <button type="submit" class="btn btn-info"><i class="fas fa-plus"></i> Thêm</button>
+                  <button type="submit" className="btn btn-info"><i className="fas fa-plus"></i> Thêm</button>
                 </div>
               </div>
             </div>
@@ -137,7 +137,7 @@ const AddShiftForm = ({ addShift, branchs, history }) => {
 
 AddShiftForm.propTypes = {
   addShift: PropTypes.func.isRequired,
-  branchs: PropTypes.object.isRequired,
+  branchs: PropTypes.array.isRequired,
 };
 
 export default connect(null, { addShift })(withRouter(AddShiftForm));

@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addShift } from "../../actions/shift";
@@ -98,7 +98,7 @@ const EditShiftForm = ({
                     name="branchId"
                     value={formData.branchId}
                     onChange={(e) => onChange(e)}
-                    class="form-control custom-select"
+                    className="form-control custom-select"
                   >
                     {elmBranchs}
                   </select>
@@ -106,12 +106,12 @@ const EditShiftForm = ({
               </div>
               <div className="col-md-addShift-2">
                 <div className="form-actions">
-                  <button type="submit" class="btn btn-info"><i class="fas fa-save"></i> Lưu
+                  <button type="submit" className="btn btn-info"><i className="fas fa-save"></i> Lưu
                   </button>
                   <button
                     onClick={() => setEditing(false)}
-                    class="btn btn-warning"
-                  ><i class="fas fa-times"></i> Hủy
+                    className="btn btn-warning"
+                  ><i className="fas fa-times"></i> Hủy
                   </button>
                 </div>
               </div>

@@ -17,47 +17,6 @@ import {
   SHOW_SHIFTREGISTERS_USER_MODAL,
   SETLOADING_SHIFTREGISTER,
 } from "./types";
-// import { PromiseProvider } from "mongoose";
-// import { count } from "../../../models/ShiftRegister2";
-
-// Create or update profile
-// export const createProfile =
-//   (formData, history, edit = false) =>
-//   async (dispatch) => {
-//     try {
-//       const config = {
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       };
-
-//       const res = await axios.post("/api/shiftRegister2", formData, config);
-
-//       dispatch({
-//         type: GET_PROFILE,
-//         payload: res.data,
-//       });
-
-//       dispatch(
-//         setAlert(edit ? "Profile Updated" : "Profile Created", "success")
-//       );
-
-//       if (!edit) {
-//         history.push("/dashboard");
-//       }
-//     } catch (err) {
-//       const errors = err.response.data.errors;
-
-//       if (errors) {
-//         errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-//       }
-
-//       dispatch({
-//         type: PROFILE_ERROR,
-//         payload: { msg: err.response.statusText, status: err.response.status },
-//       });
-//     }
-//   };
 
 // Create Shift Register
 export const addUserShiftRegister =
@@ -69,7 +28,7 @@ export const addUserShiftRegister =
             "Content-Type": "application/json",
           },
         };
-        // console.log("shift action" + formData.userId + " - " + formData.branchId + " - " + formData.dateFrom + " - " + formData.dateTo);
+        
         if (formData.userId !== null) {
           const res = await axios.post("/api/shiftRegisters2", formData, config);
 

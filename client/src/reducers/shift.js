@@ -60,15 +60,15 @@ export default function (state = initialState, action) {
     case ADD_SHIFT:
       return {
         ...state,
-        shifts: [...state.shifts, payload],
+        shifts: [payload, ...state.shifts],
         loading: false,
       };
     case UPDATE_SHIFT:
       return {
         ...state,
         shifts: [
-          ...state.shifts.filter((shift) => shift._id !== payload._id),
           { ...payload, status: 0 },
+          ...state.shifts.filter((shift) => shift._id !== payload._id),
         ],
       };
     default:
