@@ -215,7 +215,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
 }
 /* .table th,
 .table td {
@@ -340,7 +340,8 @@ img {
 }
 .landing {
   position: relative;
-  background: url("./img/showcase.jpg") no-repeat center center/cover;
+  /* background: url("./img/showcase.jpg") no-repeat center center/cover; */
+  background: url("./img/Home.png") no-repeat center center/cover;
   height: 100vh;
 }
 .landing-inner {

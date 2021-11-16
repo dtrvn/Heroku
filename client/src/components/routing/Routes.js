@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "../../components/auth/Login";
 import Register from "../../components/auth/Register";
@@ -11,7 +11,7 @@ import AddUserForm from "../../components/user-forms/AddUserForm";
 import EditUserForm from "../../components/user-forms/EditUserForm";
 import EditPassWordForm from "../../components/user-forms/EditPassWordForm";
 // import AddEducation from "../../components/profile-forms/AddEducation";
-import PersonInShiftList  from "../../components/shiftRegisters/personInShifts/PersonInShiftList";
+import PersonInShiftList from "../../components/shiftRegisters/personInShifts/PersonInShiftList";
 import SalaryPersonal from "../../components/salary/SalaryPersonal";
 import SalaryAllMember from "../../components/salary/SalaryAllMember";
 import Shift from "../dashboard/Shift";
@@ -21,33 +21,31 @@ import Shift from "../dashboard/Shift";
 // import Post from "../../components/post/Post";
 import NotFound from "../../components/layout/NotFound";
 import PrivateRoute from "../../components/routing/PrivateRoute";
+import Navbar from "../layout/Navbar";
 
 const Routes = () => {
   return (
-    <section className="container">
-      <Alert />
-      <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        {/* <Route exact path="/profiles" component={Profiles} />
-        <Route exact path="/profile/:id" component={Profile} /> */}
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-        {/* <PrivateRoute exact path="/create-profile" component={CreateProfile} /> */}
-        <PrivateRoute exact path="/users" component={Users} />
-        <PrivateRoute exact path="/shiftRegisters" component={ShiftRegisters} />
-        <PrivateRoute exact path="/create-user" component={AddUserForm} />
-        <PrivateRoute exact path="/edit-user/:id" component={EditUserForm} />
-        <PrivateRoute exact path="/edit-pass" component={EditPassWordForm} />
-        <PrivateRoute exact path="/modifer-personInShift/:startDate/:endDate/:branchId" component={PersonInShiftList} />
-        <PrivateRoute exact path="/modifer-shift" component={Shift} />
-        <PrivateRoute exact path="/salarys" component={SalaryAllMember} />
-        <PrivateRoute exact path="/salarys/:id/:firstDayOfFirstWeekInMonth/:lastDayOfLastWeekInMonth/:currentDay" component={SalaryPersonal} />
-        {/* <PrivateRoute exact path="/add-education" component={AddEducation} />
-        <PrivateRoute exact path="/posts" component={Posts} />
-        <PrivateRoute exact path="/posts/:id" component={Post} /> */}
-        <Route component={NotFound} />
-      </Switch>
-    </section>
+    <Fragment>
+      <Navbar />
+      <section className="container">
+        <Alert />
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={Register} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          <PrivateRoute exact path="/users" component={Users} />
+          <PrivateRoute exact path="/shiftRegisters" component={ShiftRegisters} />
+          <PrivateRoute exact path="/create-user" component={AddUserForm} />
+          <PrivateRoute exact path="/edit-user/:id" component={EditUserForm} />
+          <PrivateRoute exact path="/edit-pass" component={EditPassWordForm} />
+          <PrivateRoute exact path="/modifer-personInShift/:startDate/:endDate/:branchId" component={PersonInShiftList} />
+          <PrivateRoute exact path="/modifer-shift" component={Shift} />
+          <PrivateRoute exact path="/salarys" component={SalaryAllMember} />
+          <PrivateRoute exact path="/salarys/:id/:firstDayOfFirstWeekInMonth/:lastDayOfLastWeekInMonth/:currentDay" component={SalaryPersonal} />
+          <Route component={NotFound} />
+        </Switch>
+      </section>
+    </Fragment>
   );
 };
 
